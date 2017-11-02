@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:id="@+id/group_menu_cagegory">
+        <item
+            android:id="@+id/Android"
+            android:icon="@mipmap/ic_android_128"
+            android:title="@string/tv_android_category_item_back"/>
+        <item
+            android:id="@+id/iOS"
+            android:icon="@mipmap/ic_ios_128"
+            android:title="@string/tv_ios_category_item_back"/>
+        <item
+            android:id="@+id/Web"
+            android:icon="@mipmap/ic_web_128"
+            android:title="@string/tv_web_category_item_back"/>
+        <item
+            android:id="@+id/suggestion"
+            android:icon="@mipmap/ic_recommend_128"
+            android:title="@string/tv_suggest_category_item_back"/>
+        <item
+            android:id="@+id/video"
+            android:icon="@mipmap/ic_video_128"
+            android:title="@string/tv_video_category_item_back"/>
+        <item
+            android:id="@+id/girls"
+            android:icon="@mipmap/ic_the_heart_stealer_128"
+            android:title="@string/tv_meizi_category_item_back"/>
+        <item
+            android:id="@+id/extend"
+            android:icon="@mipmap/ic_extend_128"
+            android:title="@string/tv_extend_category_item_back"/>
+        <item
+            android:id="@+id/app"
+            android:icon="@mipmap/ic_app_128"
+            android:title="@string/app_category_menu_navigationview_main"/>
+    </group>
+    <group android:id="@+id/group_menu_setting">
+        <item
+            android:id="@+id/collection"
+            android:icon="@mipmap/ic_collcetion_128"
+            android:title="@string/collection_menu_navigationview_main"/>
+        <item
+            android:id="@+id/clear_cache"
+            android:icon="@mipmap/ic_clear_cache_128"
+            android:title="@string/clear_cache_menu_navigationview_main"/>
+    </group>
+</menu>
