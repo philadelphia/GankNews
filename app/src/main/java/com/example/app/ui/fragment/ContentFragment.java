@@ -6,6 +6,7 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -37,10 +38,13 @@ import io.reactivex.functions.Consumer;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ContentFragment extends Fragment implements MvpContract.IView {
+public class ContentFragment extends Fragment implements MvpContract.IView, SwipeRefreshLayout.OnRefreshListener {
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
     Unbinder unbinder;
+    @BindView(R.id.swipeRefreshLayout)
+    SwipeRefreshLayout swipeRefreshLayout;
+    Unbinder unbinder1;
 
     private Presenter presenter = new Presenter(this);
     private MyRecyclerViewAdapter<CategoryEntity.ResultsBean> recyclerViewAdapter;
@@ -58,6 +62,8 @@ public class ContentFragment extends Fragment implements MvpContract.IView {
         unbinder = ButterKnife.bind(this, view);
         title = getArguments().getString(Constant.CONSTANT_TITLE);
         ((MainActivity) getActivity()).getToolbar().setTitle(title);
+        swipeRefreshLayout.setRefreshing(false);
+        swipeRefreshLayout.setOnRefreshListener(this);
         requestDynamicPermissions();
         initData();
         initAdapter();
@@ -66,8 +72,11 @@ public class ContentFragment extends Fragment implements MvpContract.IView {
 
     public void initData() {
         Log.i(TAG, "initData: ");
-        presenter.fetchData(title, 10, 1);
+        fetchData();
+    }
 
+    public void fetchData(){
+        presenter.fetchData(title, 10, 1);
     }
 
     public void initAdapter() {
@@ -113,9 +122,8 @@ public class ContentFragment extends Fragment implements MvpContract.IView {
     @Override
     public void onLoadDataSuccess(List<CategoryEntity.ResultsBean> dataList) {
         Log.i(TAG, "onLoadDataSuccess: " + dataList.size());
-        dataSource.clear();
-        dataSource.addAll(dataList);
-        recyclerViewAdapter.notifyDataSetChanged();
+        swipeRefreshLayout.setRefreshing(false);
+        recyclerViewAdapter.addList(dataList);
     }
 
     @Override
@@ -148,5 +156,12 @@ public class ContentFragment extends Fragment implements MvpContract.IView {
                         }
                     });
         }
+    }
+
+
+    @Override
+    public void onRefresh() {
+        recyclerViewAdapter.clearList();
+        fetchData();
     }
 }

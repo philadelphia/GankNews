@@ -2,6 +2,7 @@ package com.example.app.common;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,6 +39,18 @@ public abstract class MyRecyclerViewAdapter<T> extends RecyclerView.Adapter<Comm
     public abstract void convert(CommonViewHolder viewHolder, T item, int position);
     @Override
     public int getItemCount() {
+        Log.i(TAG, "getItemCount: " + dataList.size());
         return dataList.size();
+    }
+
+    public void addList(List<T> dataSource){
+        dataList.addAll(dataSource);
+        notifyDataSetChanged();
+    }
+
+
+    public void clearList(){
+        dataList.clear();
+        notifyDataSetChanged();
     }
 }
